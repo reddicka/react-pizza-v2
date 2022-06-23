@@ -35,23 +35,25 @@ const Home = () => {
                 setItems(arr);
                 setIsLoading(false);
             });
+        window.scrollTo(0, 0);
     }, []);
 
     return (
-        <>
+        <div className="container">
             <div className="content__top">
                 <Categories />
                 <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {isLoading
-                    // Если идет загрузка, то создаем новый фейковый массив из 6-ти пицц,
-                    // на его основании делаем скелетоны карточек со значением заглушки
-                    ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-                     // Если загрузка не идет - показываем карточки как надо
-                    : items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
-                
+                {
+                    isLoading
+                        ? // Если идет загрузка, то создаем новый фейковый массив из 6-ти пицц,
+                          // на его основании делаем скелетоны карточек со значением заглушки
+                          [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+                        : // Если загрузка не идет - показываем карточки как надо
+                          items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+
                     /*
                     {...obj} - это:
                     
@@ -62,8 +64,8 @@ const Home = () => {
                     types={obj.types}*/
                 }
             </div>
-        </>
-    )
-}
+        </div>
+    );
+};
 
 export default Home;
